@@ -7,7 +7,7 @@
     body {
       margin: 0;
       background: transparent;
-      font-family: 'Arial', sans-serif;
+      font-family: Arial, sans-serif;
       color: #00ffea;
       font-size: 40px;
       font-weight: bold;
@@ -26,14 +26,18 @@
   <div id="count">Loading...</div>
 
   <script>
+    const proxyUrl = "https://cors-anywhere.herokuapp.com/";
+    const apiUrl = "https://api.redragonest.com/dashboard/stats";
+
     async function fetchPlayerCount() {
       try {
-        const res = await fetch("https://api.redragonest.com/dashboard/stats");
+        const res = await fetch(proxyUrl + apiUrl);
         const data = await res.json();
         const totalOnline = data.content.online_players[0].TotalCount;
         document.getElementById("count").innerText = `${totalOnline} Online`;
       } catch (err) {
         document.getElementById("count").innerText = "Error loading";
+        console.error(err);
       }
     }
 
